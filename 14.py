@@ -40,4 +40,4 @@ arr = []
 for i in range(1000000, 1, -1):
   print("Index", i)
   arr.append(chain_length(i))
-print("The longest chain is:", max(arr))
+print("The longest chain is:", arr.index(max(arr)))
