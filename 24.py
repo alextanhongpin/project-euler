@@ -14,60 +14,65 @@ The lexicographic permutations of 0, 1 and 2 are:
 What is the millionth lexicographic permutation of the
 digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 """
+from __future__ import division
 import math
 
-def combinations (n, r):
-  return math.factorial(n) / math.factorial(r)
 
-arr = [0, 1, 2]
-# 0 1 2
-# 0 2 1
-# 1 0 2
-# 1 2 0
-# 2 0 1
-# 2 1 0
+initial = set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+def combinations(data):
+    """
+      return the possible combinations
+    """
+    return math.factorial(data)
 
 
-def swap_left (arr):
-  out = set()
-  total = len(arr)
-  count = 0
-  for i in range(total):
-    for j in range(total):
-      if i is not j:
-        print i, j
-        for k in range(total):
-          if j is not k:
-            for l in range(total):
-              if k is not l:
-                for m in range(total):
-                  if l is not m:
-                    for n in range(total):
-                      if m is not n:
-                        for o in range(total):
-                          if n is not o:
-                           for p in range(total):
-                            if o is not p:
-                              for q  in range(total):
-                                if p is not q:
-                                  for r  in range(total):
-                                    if q is not r:
-                                      # if i is not j and i is not k and i is not l and i is not m and i is not n and i is not o and i is not p and i is not q and i is not r:
-                                        # out.add("".join([str(i), str(j), str(k), str(l), str(m), str(n), str(o), str(p), str(q)]))
-                                      count += 1
-                                      # print (count)
-                                      if count == 100:
-                                        return str(i) + str(j) + str(k) + str(l) + str(m) + str(n) + str(o) + str(p) + str(q) + str(r)
 
 
-input = ["0","1","2","3", "4", "5", "6", "7", "8", "9"]
+c = combinations(len(initial))
+c_count = c / len(initial)
+print "The number of possible combinations are", c
+print "For each section (0-3), they will have", c_count, "combinations"
+# print "For the millionth position, it has to be at:", input[1000000 / (combinations(10, 1) // 10)]
 
-o = swap_left(input)
+print "What is the nth combination?"
+length = len(initial)
 
-print(o)
-print len(o)
+def nth_index(arr, i):
+    """
+      get
+    """
+    print combinations(len(arr)), len(arr)
+    print "Hello"
+    step = combinations(len(arr)) / len(arr)
+    out = int(math.floor(i / step)) - 1 if i % step == 0 else int(math.floor(i / step))
 
-# print o[999999]
+    return out % len(arr)
+def remainder(arr, i):
+    step = combinations(len(arr)) / len(arr)
+    return i if i % step == 0 else math.floor(i / step) * step
+    # return i if i % step == 0 else i % step
+output = []
+nth = 1000000
+first_index = nth_index(initial, nth)
 
-# print l, len(l), l[999999]
+first_value = list(initial)[first_index]
+initial.remove(first_value)
+output.append(first_value)
 
+print '\n'
+print "first value:", first_value
+print '\n'
+
+loop = 0
+while len(output) < length:
+  loop += 1
+  step = combinations(len(initial)) / len(initial)
+  next_index = nth_index(initial, nth)
+  nth -= remainder(initial, nth)
+  print next_index, nth, initial, output
+  next_value = list(initial)[next_index]
+  initial.remove(next_value)
+  output.append(next_value)
+
+print "".join(map(lambda x : str(x), output))
