@@ -37,21 +37,21 @@ def swap_left (arr):
       if i is not j:
         print i, j
         for k in range(total):
-          if j is not k:
+          if i is not k:
             for l in range(total):
-              if k is not l:
+              if i is not l:
                 for m in range(total):
-                  if l is not m:
+                  if i is not m:
                     for n in range(total):
-                      if m is not n:
+                      if i is not n:
                         for o in range(total):
-                          if n is not o:
+                          if i is not o:
                            for p in range(total):
-                            if o is not p:
+                            if i is not p:
                               for q  in range(total):
-                                if p is not q:
+                                if i is not q:
                                   for r  in range(total):
-                                    if q is not r:
+                                    if i is not r:
                                       # if i is not j and i is not k and i is not l and i is not m and i is not n and i is not o and i is not p and i is not q and i is not r:
                                         # out.add("".join([str(i), str(j), str(k), str(l), str(m), str(n), str(o), str(p), str(q)]))
                                       count += 1
