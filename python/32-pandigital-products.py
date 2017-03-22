@@ -13,17 +13,18 @@ def is_unique(s):
 
 total = set()
 
-upper = int(math.ceil(math.sqrt(987654321)))
-lower = int(math.floor(math.sqrt(123456789)))
+# We 
+upper = int(math.ceil(math.sqrt(987654321)) / 2) 
+lower = 1
 
-start = upper
-while start > lower:
-  if "0" not in str(start):
-    for a in range(start, upper):
-      if "0" not in str(a):
-        com = str(a)+str(start)+str(a * lower)
-        if len(com) == 9 and is_unique(com) and "0" not in com:
-            print "MATCHED", com
-            total.add(a * b)
-  start -= 1
+
+for a in range(1, upper):
+  for b in range(1, upper):
+    if "0" not in str(a * b) and is_unique(str(a * b)):
+      print a, b
+      com = str(a)+str(b)+str(a * b)
+      if len(com) == 9 and is_unique(com) and "0" not in com:
+          print "MATCHED", com
+          total.add(a * b)
+
 print sum(list(total))
