@@ -9,4 +9,4 @@ Solutions for project euler
 
 | - | Python | Golang |
 |--|--|--|
-| 1 | 0.000278306007385 | - |
+| 1 | 0.000278306007385 | - 5489 ns/op|
