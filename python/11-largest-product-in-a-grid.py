@@ -25,65 +25,65 @@ grid = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 def parse_grid(grid):
     return map(lambda x: int(x), " ".join(grid.split("\n")).split(" "))
 
-TEST_GRID = parse_grid(grid)
 
-# TEST_GRID = [0, 1, 2, 3,
-#              4, 5, 6, 7,
-#              8, 9, 10, 11,
-#              12, 13, 14, 15]
+def main ():
+    test_grid = parse_grid(grid)
 
-LEN = len(TEST_GRID)
-DIMENSION = int(math.sqrt(LEN))
-TEST_GRID_CHUNK = [TEST_GRID[i:i + DIMENSION] for i in range(0, LEN, DIMENSION)]
+    # test_grid = [0, 1, 2, 3,
+    #              4, 5, 6, 7,
+    #              8, 9, 10, 11,
+    #              12, 13, 14, 15]
 
-MAX = 0
-for x in range(DIMENSION):
-    for y in range(DIMENSION):
-        # Horizontal value
-        if x + 3 < DIMENSION:
-            a = TEST_GRID_CHUNK[x][y]
-            b = TEST_GRID_CHUNK[x + 1][y]
-            c = TEST_GRID_CHUNK[x + 2][y]
-            d = TEST_GRID_CHUNK[x + 3][y]
-            product = a * b * c * d
-            if product > MAX:
-                MAX = product
-            # print "VERTICAL", a,b,c,d
-        if y + 3 < DIMENSION:
-            a = TEST_GRID_CHUNK[x][y]
-            b = TEST_GRID_CHUNK[x][y + 1]
-            c = TEST_GRID_CHUNK[x][y + 2]
-            d = TEST_GRID_CHUNK[x][y + 3]
-            product = a * b * c * d
-            if product > MAX:
-                MAX = product
-            # print "HORIZONTAL", a,b,c,d
-        if x + 3 < DIMENSION and y + 3 < DIMENSION:
-            a = TEST_GRID_CHUNK[x][y]
-            b = TEST_GRID_CHUNK[x + 1][y + 1]
-            c = TEST_GRID_CHUNK[x + 2][y + 2]
-            d = TEST_GRID_CHUNK[x + 3][y + 3]
-            product = a * b * c * d
-            if product > MAX:
-                MAX = product
-            # print "DIAGOAN", a,b,c,d
-        if x - 3 >= 0 and y + 3 < DIMENSION:
-            a = TEST_GRID_CHUNK[x][y]
-            b = TEST_GRID_CHUNK[x - 1][y + 1]
-            c = TEST_GRID_CHUNK[x - 2][y + 2]
-            d = TEST_GRID_CHUNK[x - 3][y + 3]
-            product = a * b * c * d
-            if product > MAX:
-                MAX = product
+    LEN = len(test_grid)
+    dimension = int(math.sqrt(LEN))
+    test_grid_chunk = [test_grid[i:i + dimension] for i in range(0, LEN, dimension)]
 
-print MAX
+    output = 0
+    for x in range(dimension):
+        for y in range(dimension):
+            # Horizontal value
+            if x + 3 < dimension:
+                a = test_grid_chunk[x][y]
+                b = test_grid_chunk[x + 1][y]
+                c = test_grid_chunk[x + 2][y]
+                d = test_grid_chunk[x + 3][y]
+                product = a * b * c * d
+                if product > output:
+                    output = product
+                # print "VERTICAL", a,b,c,d
+            if y + 3 < dimension:
+                a = test_grid_chunk[x][y]
+                b = test_grid_chunk[x][y + 1]
+                c = test_grid_chunk[x][y + 2]
+                d = test_grid_chunk[x][y + 3]
+                product = a * b * c * d
+                if product > output:
+                    output = product
+                # print "HORIZONTAL", a,b,c,d
+            if x + 3 < dimension and y + 3 < dimension:
+                a = test_grid_chunk[x][y]
+                b = test_grid_chunk[x + 1][y + 1]
+                c = test_grid_chunk[x + 2][y + 2]
+                d = test_grid_chunk[x + 3][y + 3]
+                product = a * b * c * d
+                if product > output:
+                    output = product
+                # print "DIAGOAN", a,b,c,d
+            if x - 3 >= 0 and y + 3 < dimension:
+                a = test_grid_chunk[x][y]
+                b = test_grid_chunk[x - 1][y + 1]
+                c = test_grid_chunk[x - 2][y + 2]
+                d = test_grid_chunk[x - 3][y + 3]
+                product = a * b * c * d
+                if product > output:
+                    output = product
 
-# print vertical(0, 4, test_grid)
-# print diagonal_forward(0, 4, test_grid)
-# print diagonal_backward(4, 4, test_grid)
+    # print output
 
-
-# for i in range(len(parsed)):
-#     x = i % dimension
-#     y = math.floor(i / dimension)
-#     # print x, y
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 100
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

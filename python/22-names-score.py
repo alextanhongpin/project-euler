@@ -1,17 +1,28 @@
+"""
+Problem 22: The names score
+"""
 
-alphabets = 'abcdefghijklmnopqrstuvwxyz'
+def main():
+    """The main application"""
+    alphabets = 'abcdefghijklmnopqrstuvwxyz'
+    output = 0
+    with open("./22-data.txt") as file_content:
+        lines = [line.split(",") for line in file_content.readlines()][0]
+        lines = [x.replace('"', "").lower() for x in lines]
+        lines.sort()
+        for key, value in enumerate(lines):
+            total = 0
+            for _, j in enumerate(value):
+                total += alphabets.index(j) + 1
+            output += total * (key + 1)
 
-output = 0
-with open("./python/22-data.txt") as f:
-    lines = [line.split(",") for line in f.readlines()][0]
-    lines = map(lambda x: x.replace('"', "").lower(), lines)
-    lines.sort()
-    for k, v in enumerate(lines):
-        total = 0
-        for j in range(len(v)):
-            total += alphabets.index(v[j]) + 1
-        output += total * (k + 1)
 
+    print output
 
-print output
-
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 100
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

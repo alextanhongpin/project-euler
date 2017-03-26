@@ -2,6 +2,7 @@ import math
 n = 1100
 
 
+from prime import is_prime
 def circular_number(n):
   arr = []
   str_n = str(n)
@@ -12,34 +13,25 @@ def circular_number(n):
     arr.append(int(str_n))
   return arr
 
-def is_prime (n):
-  if n <= 1:
-    return False
-  elif n == 2:
-    return True
-  elif n == 3:
-    return True
-  else:
-    square_root = int(math.ceil(math.sqrt(n)))
-    for i in range(square_root + 1, 2, -1):
-      if n % i == 0:
-        return False
-      elif n % 2 == 0:
-        return False
-      elif n % 3 == 0:
-        return False
-    return True
 
 def circular_primes(n):
   c = circular_number(n)
   p = list(filter(lambda x: is_prime(x), c))
   return len(c) == len(p)
 
-count = 0
-for i in range(1, 1000000):
-  if i % 2 != 0 or i is 2:
-    print i
-    if circular_primes(i) == True:
-      print "PRIME", i
-      count += 1
-print count
+def main():
+    """The main application"""
+    count = 0
+    for i in range(1, 1000000):
+      if i % 2 != 0 or i is 2:
+        if circular_primes(i) == True:
+          count += 1
+    print count
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

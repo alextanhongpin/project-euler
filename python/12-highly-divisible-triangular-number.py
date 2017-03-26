@@ -22,25 +22,36 @@ Benchmark
 ('Time:', 4.871320009231567)
 """
 import math
-from timeit import default_timer as timer
 
-def triangle_number (n):
-  return n * (n + 1) / 2
+def triangle_number(number):
+    """Get the triangle numbers"""
+    return number * (number + 1) / 2
 
-def find_divisors (n):
-  s = set()
-  r = int(math.ceil(math.sqrt(n)))
-  for i in range(1, r):
-    if n % i == 0:
-      s.add(i)
-  return len(s) * 2
+def find_divisors(number):
+    """
+    Get the number of divisors
+    """
+    output = set()
+    limit = int(math.ceil(math.sqrt(number)))
+    for i in range(1, limit):
+        if number % i == 0:
+            output.add(i)
+    return len(output) * 2
 
-o = 0
-i = 1
-start = timer()
-while o < 500:
-  i += 1
-  o = find_divisors(triangle_number(i))
-end = timer()
-print("Time:", end - start)
-print("The first triangle number with over five hundred divisors is:", triangle_number(i))
+
+def main():
+    o = 0
+    i = 1
+    while o < 500:
+        i += 1
+        o = find_divisors(triangle_number(i))
+    print("The first triangle number with over five hundred divisors is:", triangle_number(i))
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)
+

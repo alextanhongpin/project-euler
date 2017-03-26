@@ -17,27 +17,40 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 
 """
 
-def handle_even(n):
-  return n / 2
+def handle_even(number):
+    """Handle if a number is even"""
+    return number / 2
 
-def handle_odd(n):
-  return 3 * n + 1
+def handle_odd(number):
+    """Handle if a number is odd"""
+    return 3 * number + 1
 
-def is_even(n):
-  return n % 2 == 0
+def is_even(number):
+    """Check if a number is even"""
+    return number % 2 == 0
 
-def chain_length(input):
-  count = 1
-  while input != 1:
-    count += 1
-    if is_even(input):
-      input = handle_even(input)
-    else:
-      input = handle_odd(input)
-  return count
+def chain_length(number):
+    """Get the length of the chain"""
+    count = 1
+    while number != 1:
+        count += 1
+        if is_even(number):
+            number = handle_even(number)
+        else:
+            number = handle_odd(number)
+    return count
 
-arr = []
-for i in range(1000000, 1, -1):
-  print("Index", i)
-  arr.append(chain_length(i))
-print("The longest chain is:", arr.index(max(arr)))
+def main():
+    """The main application"""
+    arr = []
+    for i in range(1000000, 1, -1):
+        arr.append(chain_length(i))
+    print "The longest chain is: {}".format(arr.index(max(arr)))
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

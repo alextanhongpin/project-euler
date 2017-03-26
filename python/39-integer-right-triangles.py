@@ -25,14 +25,16 @@ def main():
       for a in range(1000, 1, -1):
         if is_solution(a, p):
           count += 1
-          print "Add", count
-      print count
       if count > output:
         output = count
         n = p
-        print "Max count", output
-        print "Perimeter", p
 
     print "Answer:", output, n
 
-main()
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

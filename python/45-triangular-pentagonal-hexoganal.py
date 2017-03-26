@@ -27,4 +27,10 @@ def main():
             s.add(t)
     print s
 
-main()
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

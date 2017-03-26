@@ -1,4 +1,4 @@
-package main
+package euler
 
 // Answer: 25164150
 // Find the difference between the sum of the squares

@@ -4,12 +4,15 @@ import "fmt"
 
 // Answer: 232792560
 func main() {
-	i := 20 * 19 * 1000
-	for isDivisible(i, 20) == false {
-		i += 20 * 19
-		fmt.Println(i)
-	}
+	i := smallestMultiple(20 * 19 * 1000)
 	fmt.Println(i)
+}
+
+func smallestMultiple(val int) int {
+	for isDivisible(val, 20) == false {
+		val += 20 * 19
+	}
+	return val
 }
 
 func isDivisible(n, r int) bool {

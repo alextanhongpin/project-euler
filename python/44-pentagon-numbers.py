@@ -9,33 +9,37 @@ def is_pentagonal(c):
     return False
   return True
 
-c = 0
-d = {}
-upper = 2170
+def main():
+  c = 0
+  d = {}
+  upper = 2170
 
-while c < upper:
-  d[c] = pentagon_numbers(c)
-  c += 1
+  while c < upper:
+    d[c] = pentagon_numbers(c)
+    c += 1
 
-out = 0
-is_solved = False
-i = 0
-while is_solved is False:
-  for j in range(1, i - 1):
-    if i < j:
-      continue
-    a = d.get(i, 0)
-    b = d.get(j, 0)
-    n = is_pentagonal(a + b)
-    m = is_pentagonal(a - b)
-    if n and m:
-      out = a - b
-      print "out", out
-      is_solved = True
-  i += 1
-print out
+  out = 0
+  is_solved = False
+  i = 0
+  while is_solved is False:
+    for j in range(1, i - 1):
+      if i < j:
+        continue
+      a = d.get(i, 0)
+      b = d.get(j, 0)
+      n = is_pentagonal(a + b)
+      m = is_pentagonal(a - b)
+      if n and m:
+        out = a - b
+        print "out", out
+        is_solved = True
+    i += 1
+  print out
 
-
-# 95, 28, 99
-# 97, 52, 110
-# 99, 32, 104
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

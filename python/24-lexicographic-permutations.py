@@ -17,12 +17,9 @@ digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 
 # Use permutations to solve the equation
 from __future__ import division
-from timeit import default_timer as timer
 import math
 
-start_time = timer()
 
-initial = set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 def combinations(data):
     """
@@ -30,48 +27,52 @@ def combinations(data):
     """
     return math.factorial(data)
 
+def main():
+    initial = set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    c = combinations(len(initial))
+    c_count = c / len(initial)
+    print "The number of possible combinations are", c
+    print "For each section (0-3), they will have", c_count, "combinations"
+    # print "For the millionth position, it has to be at:", input[1000000 / (combinations(10, 1) // 10)]
 
+    length = len(initial)
 
+    def nth_index(arr, i):
+        """
+          get
+        """
+        step = combinations(len(arr)) / len(arr)
+        out = int(math.floor(i / step)) - 1 if i % step == 0 else int(math.floor(i / step))
 
-c = combinations(len(initial))
-c_count = c / len(initial)
-print "The number of possible combinations are", c
-print "For each section (0-3), they will have", c_count, "combinations"
-# print "For the millionth position, it has to be at:", input[1000000 / (combinations(10, 1) // 10)]
+        return out % len(arr)
+    def remainder(arr, i):
+        step = combinations(len(arr)) / len(arr)
+        return i if i % step == 0 else math.floor(i / step) * step
+        # return i if i % step == 0 else i % step
+    output = []
+    nth = 1000000
+    first_index = nth_index(initial, nth)
 
-length = len(initial)
+    first_value = list(initial)[first_index]
+    initial.remove(first_value)
+    output.append(first_value)
 
-def nth_index(arr, i):
-    """
-      get
-    """
-    step = combinations(len(arr)) / len(arr)
-    out = int(math.floor(i / step)) - 1 if i % step == 0 else int(math.floor(i / step))
+    loop = 0
+    while len(output) < length:
+      loop += 1
+      step = combinations(len(initial)) / len(initial)
+      next_index = nth_index(initial, nth)
+      nth -= remainder(initial, nth)
+      next_value = list(initial)[next_index]
+      initial.remove(next_value)
+      output.append(next_value)
 
-    return out % len(arr)
-def remainder(arr, i):
-    step = combinations(len(arr)) / len(arr)
-    return i if i % step == 0 else math.floor(i / step) * step
-    # return i if i % step == 0 else i % step
-output = []
-nth = 1000000
-first_index = nth_index(initial, nth)
+    print "".join(map(lambda x : str(x), output))
 
-first_value = list(initial)[first_index]
-initial.remove(first_value)
-output.append(first_value)
-
-loop = 0
-while len(output) < length:
-  loop += 1
-  step = combinations(len(initial)) / len(initial)
-  next_index = nth_index(initial, nth)
-  nth -= remainder(initial, nth)
-  next_value = list(initial)[next_index]
-  initial.remove(next_value)
-  output.append(next_value)
-
-print "".join(map(lambda x : str(x), output))
-
-end_time = timer()
-print "Time:", end_time - start_time
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 5
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

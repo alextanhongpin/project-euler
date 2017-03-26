@@ -20,9 +20,17 @@ def compute_triangle_number(s):
       return True
   return False
 
+def main():
+    with open('./42-data.txt') as f:
+      lines = f.readlines()[0].replace('"', '').split(',')
+      output = [compute_triangle_number(x) for x in lines]
+      print len(filter(lambda x: x, output))
 
-with open('./python/42-data.txt') as f:
-  lines = f.readlines()[0].replace('"', '').split(',')
-  output = [compute_triangle_number(x) for x in lines]
-  print len(filter(lambda x: x, output))
 
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

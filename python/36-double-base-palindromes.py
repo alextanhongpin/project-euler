@@ -9,12 +9,19 @@ def to_binary(n):
   return "{0:b}".format(n)
 
 def main():
-  upper = 1000000
-  count = 0
-  for i in range(upper):
-    if is_palindrome(i) and is_palindrome(to_binary(i)):
-      count += i
+    """The main application"""
+    upper = 1000000
+    count = 0
+    for i in range(upper):
+        if is_palindrome(i) and is_palindrome(to_binary(i)):
+            count += i
+    print "Answer:", count
 
-  print "Answer:", count
 
-main()
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

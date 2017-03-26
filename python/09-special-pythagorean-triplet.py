@@ -10,23 +10,30 @@ There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 Find the product abc.
 """
 import math
+
 def f (a, b, c):
- return a + b + c
+    return a + b + c
 
 def circle (a, b):
-  return math.sqrt(a ** 2 + b ** 2)
+    return math.sqrt(a ** 2 + b ** 2)
 
-s = set()
-for a in range(1, 1001):
-  for b in range(1, 1001):
-    c = circle(a, b)
-    if f(a, b, c) == 1000:
-      s.add(a)
-      s.add(b)
+def main():
+    """The main application"""
+    s = set()
+    for a in range(1, 1001):
+        for b in range(1, 1001):
+            c = circle(a, b)
+            if f(a, b, c) == 1000:
+                s.add(a)
+                s.add(b)
+    c = circle(list(s)[0], list(s)[1])
+    s.add(c)
+    print("The product abc is:", reduce((lambda x, y: x * y), s))
 
-print("A and B is", s, "respectively")
-print(list(s)[0])
-c = circle(list(s)[0], list(s)[1])
-s.add(c)
-
-print("The product abc is:", reduce((lambda x, y: x * y), s))
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

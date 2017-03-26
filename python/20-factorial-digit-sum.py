@@ -11,9 +11,20 @@ Find the sum of the digits in the number 100!
 
 
 def factorial(n):
-  return reduce(lambda x, y: x * y, [x for x in range(n, 1, -1)])
+    """Count the number of factorials"""
+    return reduce(lambda x, y: x * y, [x for x in range(n, 1, -1)])
 
 
+def main():
+    """The main appliation"""
+    stringified = str(factorial(100))
+    print reduce(lambda x, y: x + y, [int(stringified[s]) for s in range(len(stringified))])
 
-stringified = str(factorial(100))
-print reduce(lambda x, y: x + y, [int(stringified[s]) for s in range(len(stringified))])
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 100
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

@@ -45,17 +45,24 @@ def count_primes(a, b):
   return counter
 
 
-final_a = 0
-final_b = 0
-final_count = -9999
-for a in range(-1000, 1000):
-  for b in range(-1000, 1000):
-    count = count_primes(a, b)
-    if count > final_count:
-      final_count = count
-      final_a = a
-      final_b = b
+def main():
+  final_a = 0
+  final_b = 0
+  final_count = -9999
+  for a in range(-1000, 1000):
+    for b in range(-1000, 1000):
+      count = count_primes(a, b)
+      if count > final_count:
+        final_count = count
+        final_a = a
+        final_b = b
+  print final_count, final_a * final_b
 
-print "final_a", final_a
-print "final_b", final_b
-print final_count, final_a * final_b
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

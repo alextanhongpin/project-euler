@@ -18,48 +18,49 @@ PYRAMID = """75
 # 7 4
 # 2 4 6
 # 8 5 9 3"""
+def main():
+    """The main application"""
+    PARSED = [[int(y) for y in x.split(" ")] for x in PYRAMID.split("\n")]
 
-"""
-3
-10, 14
-12, 14, 13
-20, 19, 23, 16
-"""
-PARSED = [[int(y) for y in x.split(" ")] for x in PYRAMID.split("\n")]
+    y = 0
+    total = 0
 
-y = 0
-total = 0
+    arr = []
 
-arr = []
+    theoretical_max = 0
+    for i in range(len(PARSED)):
+        theoretical_max += max(PARSED[i])
 
-theoretical_max = 0
-for i in range(len(PARSED)):
-    theoretical_max += max(PARSED[i])
+    print theoretical_max
+    while y < len(PARSED):
+        row = PARSED[y]
+        # First row
+        if len(row) == 1:
+            arr.append(row)
+        elif len(row) == 2:
+            arr.append(map(lambda x: x + arr[y - 1][0], row))
+        else:
+            new_arr = []
+            for i in range(len(row)):
+                if i == 0:
+                    new_arr.append(row[i] + arr[y - 1][0])
+                elif i == len(row) - 1:
+                    new_arr.append(row[i] + arr[y - 1][i - 1])
+                else:
+                    left = i - 1 if i - 1 > 0 else 0
+                    right = i
+                    print i, row, arr[y - 1][left:right + 1]
+                    new_arr.append(row[i] + max(arr[y - 1][left:right + 1]))
+            arr.append(new_arr)
+        y += 1
 
-print theoretical_max
-while y < len(PARSED):
-    row = PARSED[y]
-    # First row
-    if len(row) == 1:
-        arr.append(row)
-    elif len(row) == 2:
-        arr.append(map(lambda x: x + arr[y - 1][0], row))
-    else:
-        new_arr = []
-        for i in range(len(row)):
-            if i == 0:
-                new_arr.append(row[i] + arr[y - 1][0])
-            elif i == len(row) - 1:
-                new_arr.append(row[i] + arr[y - 1][i - 1])
-            else:
-                left = i - 1 if i - 1 > 0 else 0
-                right = i
-                print i, row, arr[y - 1][left:right + 1]
-                new_arr.append(row[i] + max(arr[y - 1][left:right + 1]))
-        arr.append(new_arr)
-    y += 1
+    print "MAX", max(max(arr))
 
-print "MAX", max(max(arr))
 
-for i in range(len(arr)):
-    print arr[i]
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 100
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

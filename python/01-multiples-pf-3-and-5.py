@@ -1,15 +1,18 @@
 """
-Problem 16
-2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
-
-What is the sum of the digits of the number 2^1000?
+Problem 1: Multiples of 3 and 5
 """
 
 def main():
     """The main application"""
-    number = 2 ** 1000
-    stringified_number = str(number)
-    print sum([int(stringified_number[x]) for x in range(len(stringified_number))])
+    output = []
+    for i in range(1000):
+        if i % 3 == 0 and i % 5 == 0:
+            output.append(i)
+        elif i % 3 == 0:
+            output.append(i)
+        elif i % 5 == 0:
+            output.append(i)
+    return sum(output)
 
 if __name__ == '__main__':
     import timeit

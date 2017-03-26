@@ -1,24 +1,7 @@
 import math
 import re
 
-def is_prime(n):
-  if n <= 1:
-    return False
-  elif n == 2:
-    return True
-  elif n == 3:
-    return True
-  else:
-    square_root = int(math.ceil(math.sqrt(n)))
-    for i in range(square_root + 1, 2, -1):
-      if n % i == 0:
-        return False
-      elif n % 2 == 0:
-        return False
-      elif n % 3 == 0:
-        return False
-    return True
-
+from prime import is_prime
 
 def truncate_left(n):
   arr = [n]
@@ -45,6 +28,7 @@ def list_is_prime(arr):
   return len(prime_only) == len(arr)
 
 def main():
+  """The main application"""
   i = 1
   arr = []
   count = 0
@@ -57,4 +41,11 @@ def main():
 
   print sum(arr), arr
 
-main()
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

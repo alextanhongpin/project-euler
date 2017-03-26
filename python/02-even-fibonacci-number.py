@@ -1,15 +1,15 @@
 """
-Problem 16
-2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
-
-What is the sum of the digits of the number 2^1000?
+Problem 2: Even Fibonacci Number
 """
 
 def main():
     """The main application"""
-    number = 2 ** 1000
-    stringified_number = str(number)
-    print sum([int(stringified_number[x]) for x in range(len(stringified_number))])
+    arr = [1,2]
+    output = 0
+    while output < 4000000:
+        output = arr[len(arr) - 1] + arr[len(arr) - 2]
+        arr.append(output)
+    print sum(list(filter(lambda x : x % 2 == 0, arr)))
 
 if __name__ == '__main__':
     import timeit

@@ -29,51 +29,58 @@ def is_prime (n):
         return False
     return True
 
+def main():
+    d = [] # d holds the consecutive sums
+    primes = []
+    i = 1
+    while i < 1000000:
+        if is_prime(i):
+            # 1. Get the prime numbers from 1 to n
+            primes.append(i)
+            # 2. Get the consecutive primes
+            if len(d) - 1 >= 0:
+                d.append(i + d[-1])
+            else:
+                d.append(i)
+        i += 1
 
-d = [] # d holds the consecutive sums
-primes = []
-i = 1
-while i < 1000000:
-    if is_prime(i):
-        # 1. Get the prime numbers from 1 to n
-        primes.append(i)
-        # 2. Get the consecutive primes
-        if len(d) - 1 >= 0:
-            d.append(i + d[-1])
-        else:
-            d.append(i)
-    i += 1
+    def get_closest(n, l):
+        """
+        n is the closest value
+        l is the list
+        """
+        for i in range(len(l)):
+            if l[i] >= n:
+                return i
+        return 0
 
-def get_closest(n, l):
-    """
-    n is the closest value
-    l is the list
-    """
-    for i in range(len(l)):
-        if l[i] >= n:
-            return i
-    return 0
+    num_combinations = 0
+    v = 0
+    for i in range(len(primes) - 1, 1, -1):
+        prime = primes[i]
+        try:
+            n = d.index(prime) + 1
+            if n > num_combinations:
+                num_combinations = n
+                v = prime
+        except ValueError:
+            n = get_closest(prime, d)
+            start = d[n]
+            for j in range(n + 1):
+                if start - d[j] == prime:
+                    index = n - j
+                    if index > num_combinations:
+                        num_combinations = index
+                        v = prime
 
-num_combinations = 0
-v = 0
-for i in range(len(primes) - 1, 1, -1):
-    prime = primes[i]
-    try:
-        n = d.index(prime) + 1
-        if n > num_combinations:
-            num_combinations = n
-            v = prime
-    except ValueError:
-        n = get_closest(prime, d)
-        start = d[n]
-        for j in range(n + 1):
-            if start - d[j] == prime:
-                index = n - j
-                if index > num_combinations:
-                    num_combinations = index
-                    v = prime
-
-print "The prime {0} has {1} combinations".format(v, num_combinations)
+    print "The prime {0} has {1} combinations".format(v, num_combinations)
 
 
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)
 

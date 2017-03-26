@@ -17,8 +17,20 @@ m = (2n)! / (n!)^2
 """
 
 def central_binomial_coefficient(grid):
-  numerator = reduce((lambda x, y : x * y), [n for n in range(2 * grid, 0, -1)])
-  denominator = reduce((lambda x, y : x * y), [n for n in range(grid, 0, -1)]) ** 2
-  return numerator / denominator
+    """Calculates the central binomial coefficient"""
+    numerator = reduce((lambda x, y: x * y), [n for n in range(2 * grid, 0, -1)])
+    denominator = reduce((lambda x, y: x * y), [n for n in range(grid, 0, -1)]) ** 2
+    return numerator / denominator
 
-print('Paths found:', central_binomial_coefficient(20))
+def main():
+    """The main application"""
+    print('Paths found:', central_binomial_coefficient(20))
+
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 100
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)

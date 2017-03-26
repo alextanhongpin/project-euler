@@ -55,5 +55,12 @@ def main():
     print new_set, len(new_set)
     print sum([int(x) if divisible_pandigital(x) else 0 for x in new_set])
 
-main()
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)
+
 

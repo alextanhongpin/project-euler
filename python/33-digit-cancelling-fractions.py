@@ -31,13 +31,23 @@ def count(n):
       return n[i]
   return ""
 
-n = 1
-d = 1
-for i in range(1, 100):
-  for j in range(1, 100):
-    if less_than_n(i / j, 1):
-      a, b = cancel_digits(i, j)
-      if a and b is not 0:
-        n *= i
-        d *= j
-        print "Result", i, j, a, b, n, d, n / d
+def main():
+    """The main application"""
+    n = 1
+    d = 1
+    for i in range(1, 100):
+      for j in range(1, 100):
+        if less_than_n(i / j, 1):
+          a, b = cancel_digits(i, j)
+          if a and b is not 0:
+            n *= i
+            d *= j
+            print "Result", i, j, a, b, n, d, n / d
+
+if __name__ == '__main__':
+    import timeit
+    ITERATIONS = 10
+    MESSAGE = "Function takes {} s to complete."
+    print MESSAGE.format(timeit.timeit("main()", 
+                                       number=ITERATIONS, 
+                                       setup="from __main__ import main") / ITERATIONS)
