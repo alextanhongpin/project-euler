@@ -35,7 +35,6 @@ def main():
                                              for i in range(1000, 9999)])
 
   while len(s) < 3:
-      print "N", n
       for i in range(len(primes)):
           a = n * 0 + primes[i]
           b = n * 1 + primes[i]
@@ -46,8 +45,8 @@ def main():
                       s.add(a)
                       s.add(b)
                       s.add(c)
-                      print a, b, c
       n += 1
+  print n
 
 
 if __name__ == '__main__':

@@ -1,18 +1,23 @@
-# project-euler
-Solutions for project euler
+# Project Euler
 
+Solutions for Project Euler written in `python` and `golang` (work in progress).
 
-- [ ] Add benchmark for the different languages
-- [ ] Optimize
-- [ ] Create excel to get average performance
-- [ ] How to benchmark for Go and Python?
+The goal of this hobby project is to:
+- [x] Understand how to benchmark algorithms
+- [ ] Benchmark the performance for solutions written with `golang` and `python`
+- [ ] Compare the performance between `golang` and `python`
+- [ ] Learn to write optimized (and pretty) code
+- [x] Refresher for statistics :)
+- [x] Loop like crazy
+- [x] Refine my decision-making skill (When to brute-force, when to cheat)
 
-Version: macOS Sierra, Version 10.12.3
-Machine:
-MacBook Pro (13-inch, 2016, Four Thunderbolt 3 Ports)
-Processor: 2.9 GHz Intel Core i5
-Memory: 8 GB 2133 MHz LPDDR3
-Graphics: Intel Iris Graphics 550 1536 MB
+The specs for the machine I am using (since the results might differ for different machines):
+
+- Version: macOS Sierra, Version 10.12.3
+- Machine: MacBook Pro (13-inch, 2016, Four Thunderbolt 3 Ports)
+- Processor: 2.9 GHz Intel Core i5
+- Memory: 8 GB 2133 MHz LPDDR3
+- Graphics: Intel Iris Graphics 550 1536 MB
 
 | - | Python | Golang |
 |--|--|--| 
@@ -50,7 +55,7 @@ Graphics: Intel Iris Graphics 550 1536 MB
 | 32 | Too long...| | 
 | 33 | 0.0168312072754 s |  | 
 | 34 | 6.25762090683 s | | 
-| 35 | Too long...| | 
+| 35 | 156.06213851 s | | 
 | 36 |  0.949850916862 s  | | 
 | 37 | 0.000824189186096 s | | 
 | 38 | 0.985824799538 s | | 
@@ -68,7 +73,7 @@ Graphics: Intel Iris Graphics 550 1536 MB
 | 50 | | | 
 
 
-# Python
+## Python
 
 The solutions for the python codes are placed in the python folder.
 Benchmarking a function is easy - just add the following line at the end of each file:
@@ -83,3 +88,24 @@ if __name__ == '__main__':
 ```
 
 Note that the `number` refers to the number of times the function will be called to carry out the benchmark. We divide the the time taken by 1000 to get the average time.
+
+## Golang
+
+To benchmark a `.go` file, just create a `main_test.go` file:
+
+```go
+package main
+
+import "testing"
+
+func BenchmarkProblem01(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Sum(MultiplesOfThreeAndFive(1000))
+    }
+}
+```
+
+Then run the following the the terminal:
+```bash
+$ go test -bench=. ./test
+```
