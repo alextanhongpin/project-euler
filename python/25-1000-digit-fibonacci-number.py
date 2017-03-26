@@ -32,3 +32,9 @@ while len(str(fn)) < 1000:
   f2 = fn
   print fn, i + 3
   i += 1
+
+
+# def fibonacci (prev, curr, nth):
+#    if curr < nth:
+#        return fibonacci(prev, curr + prev, nth)
+#    return curr

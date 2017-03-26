@@ -11,17 +11,4 @@
   1xE1 + 1x50p + 2x20p + 1x5p + 1x2p + 3x1p
   How many different ways can E2 be made using any number of coins?
 """
-from __future__ import division
-import math
 
-
-def combinations (n, r):
-  return math.factorial(n) / math.factorial(r)
-
-
-opts = [1, 2, 5, 10, 20, 50, 100, 200]
-
-count = 0
-for i in range(1, len(opts) + 1):
-  count += combinations(len(opts), i)
-print count

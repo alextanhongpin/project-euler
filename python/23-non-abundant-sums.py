@@ -1,52 +1,37 @@
 """
-Non-abundant sums
-Problem 23
-A perfect number is a number for which the sum of its proper divisors is exactly equal to the number. For example, the sum of the proper divisors of 28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a perfect number.
-
-A number n is called deficient if the sum of its proper divisors is less than n and it is called abundant if this sum exceeds n.
-
-As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, 
-the smallest number that can be written as the sum of two 
-abundant numbers is 24. 
-By mathematical analysis, it can be shown that all integers 
-greater than 28123 can be written as the sum of two abundant 
-numbers. 
-However, this upper limit cannot be reduced any further by
-analysis even though it is known that the greatest number
-that cannot be expressed as the sum of two abundant numbers is 
-less than this limit.
-
-Find the sum of all the positive integers which
-cannot be written as the sum of two abundant numbers.
+https://projecteuler.net/problem=23
 """
 
 def is_abundant(n):
-  arr = set()
-  for i in range(1, n):
-    if n % i == 0:
-      arr.add(i)
+  arr = []
+  for i in range(0, n):
+    try:
+      if n % i == 0:
+        arr.append(i)
+    except ZeroDivisionError:
+      print "SKIP"
   return sum(arr) > n
 
-n = 28123
-s = set()
-for i in range(1, n + 1):
-  if is_abundant(i):
-    s.add(i)
+def main():
+  """
+  Main
+  """
+  n = 28123
+  sum_abundants = []
+  abundants = []
+  for i in range(n + 1):
+    if is_abundant(i):
+      print i
+      abundants.append(i)
 
-# Let `s` be the list of abundant numbers found below `n`
-print "Abundant numbers found:", s
+  print len(abundants)
+  for i in range(len(abundants)):
+    for j in range(len(abundants)):
+      if i < j:
+        sum_abundants.append(abundants[i] + abundants[j])
 
-arr = set()
-for i in range(len(s)):
-  for j in range(len(s)):
-    print "i, j", i, j
-    total = list(s)[i] + list(s)[j]
-    if total <= n:
-      arr.add(list(s)[i])
-print arr
-count = 0
-for i in range(1, n + 1):
-  if i not in arr:
-    print i
-    count += 1
-print "Total:", count
+  numbers = [i for i in range(n + 1)]
+  print sum(list(filter(lambda x: x not in sum_abundants, numbers)))
+
+
+main()

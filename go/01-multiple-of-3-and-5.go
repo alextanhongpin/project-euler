@@ -8,20 +8,26 @@ import "fmt"
 
 // Find the sum of all the multiples of 3 or 5 below 1000.
 func main() {
+	fmt.Println(Sum(MultiplesOfThreeAndFive(1000)))
+	// Result should be 1340
+}
+func MultiplesOfThreeAndFive(number int) []int {
 	var multiples []int
-	var max int
-
-	// Let max be 1000
-	max = 1000
-	for i := 1; i < max; i++ {
-		if max%i == 0 {
+	for i := 1; i < number; i++ {
+		if i%3 == 0 && i%5 == 0 {
+			multiples = append(multiples, i)
+		} else if i%5 == 0 {
+			multiples = append(multiples, i)
+		} else if i%3 == 0 {
 			multiples = append(multiples, i)
 		}
 	}
-	sum := 0
-	for v := range multiples {
-		sum += multiples[v]
+	return multiples
+}
+func Sum(multiples []int) int {
+	var total int
+	for _, v := range multiples {
+		total += v
 	}
-	fmt.Println(sum)
-	// Result should be 1340
+	return total
 }
