@@ -29,4 +29,26 @@ out = []
 for i in range(10):
     out.append(benchmark(main))
 
-print sum(out) / len(out)
+print "Average for 10 times:{0}".format(sum(out) / len(out))
+
+
+import time
+
+class Timer(object):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
+
+    def __enter__(self):
+        self.start = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.end = time.time()
+        self.secs = self.end - self.start
+        self.msecs = self.secs * 1000  # millisecs
+        if self.verbose:
+            print 'elapsed time: %f ms' % self.msecs
+
+with Timer() as t:
+    main()
+print  "=> elasped lpush: %s s" % t.secs
